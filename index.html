@@ -4259,6 +4259,229 @@
             }
         }
 
+        /* --- Final refinement pass: keeps the existing portfolio structure intact. --- */
+        html {
+            scroll-padding-top: 104px;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #030b1f; }
+        ::-webkit-scrollbar-thumb {
+            border: 3px solid #030b1f;
+            border-radius: 999px;
+            background: linear-gradient(#5bbcff, #2875df);
+        }
+
+        .header-nav {
+            padding: 7px;
+            border-color: rgba(150, 210, 255, 0.25);
+            box-shadow: 0 16px 48px rgba(0, 5, 31, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .header-nav-link {
+            min-height: 52px;
+            font-weight: 700;
+        }
+
+        .header-nav-link:focus-visible,
+        .hero-btn:focus-visible,
+        .filter-btn:focus-visible,
+        .project-link-btn:focus-visible,
+        .gallery-social-link:focus-visible {
+            outline: 3px solid #9ce5ff;
+            outline-offset: 3px;
+        }
+
+        #home .home-hero h1 {
+            max-width: 760px;
+            text-wrap: balance;
+        }
+
+        #home .home-hero .intro {
+            color: rgba(230, 242, 255, 0.88);
+            text-wrap: pretty;
+        }
+
+        .hero-specialty-card,
+        .home-info-card,
+        .card {
+            will-change: transform;
+        }
+
+        .home-info-card.gallery-card,
+        .home-info-card.testimonials {
+            background-image:
+                radial-gradient(circle at 82% 12%, rgba(83, 182, 255, 0.17), transparent 34%),
+                linear-gradient(145deg, rgba(8, 35, 90, 0.95), rgba(4, 18, 52, 0.98));
+            background-position: center;
+        }
+
+        .home-info-card.gallery-card:hover,
+        .home-info-card.testimonials:hover {
+            background-image:
+                radial-gradient(circle at 82% 12%, rgba(111, 210, 255, 0.23), transparent 36%),
+                linear-gradient(145deg, rgba(11, 44, 108, 0.97), rgba(4, 18, 52, 0.99));
+        }
+
+        .card {
+            overflow: hidden;
+            border-color: rgba(124, 190, 255, 0.18);
+            background: linear-gradient(150deg, rgba(13, 45, 104, 0.86), rgba(5, 19, 52, 0.98));
+            box-shadow: 0 18px 45px rgba(0, 8, 36, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 3px;
+            background: linear-gradient(#7cdbff, #397cff);
+            opacity: 0.75;
+        }
+
+        .card:hover {
+            border-color: rgba(132, 208, 255, 0.44);
+            box-shadow: 0 25px 55px rgba(0, 15, 60, 0.36), 0 0 0 1px rgba(83, 173, 255, 0.08);
+        }
+
+        .filter-bar {
+            padding: 7px;
+            border-color: rgba(124, 190, 255, 0.18);
+            background: rgba(4, 19, 52, 0.58);
+            backdrop-filter: blur(18px);
+        }
+
+        .filter-btn {
+            font-weight: 700;
+        }
+
+        .tech {
+            border-color: rgba(124, 201, 255, 0.2);
+            background: rgba(82, 154, 255, 0.11);
+        }
+
+        .gallery-item {
+            border-color: rgba(149, 215, 255, 0.22);
+            background: #071a45;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            border-color: rgba(132, 199, 255, 0.22);
+            background: rgba(2, 14, 42, 0.58);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #77d8ff;
+            box-shadow: 0 0 0 4px rgba(93, 193, 255, 0.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Motion refinement: fewer competing effects, clearer feedback. */
+        .section-page {
+            animation-duration: 0.35s;
+            animation-timing-function: ease-out;
+        }
+
+        .hero-portrait-frame,
+        .hero-portrait-frame::after,
+        .hero-portrait-frame img,
+        .about-me .profile-pic-container,
+        .about-me .profile-pic-container img {
+            animation: none;
+            will-change: auto;
+        }
+
+        .hero-portrait-frame {
+            transform: translateX(-50%);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-radius 0.35s ease;
+        }
+
+        .hero-portrait-frame img,
+        .about-me .profile-pic-container img {
+            transform: none;
+            transition: transform 0.45s ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .hero-portrait-frame:hover {
+                transform: translateX(-50%) translateY(-4px);
+                box-shadow: 0 35px 90px rgba(0, 5, 33, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+
+            .hero-portrait-frame:hover img,
+            .about-me .profile-pic-container:hover img {
+                transform: scale(1.025);
+            }
+        }
+
+        .testimonial-marquee-track {
+            animation-duration: 36s;
+        }
+
+        .gallery-marquee-track {
+            animation-duration: 56s;
+        }
+
+        .gallery-marquee .gallery-item,
+        .home-info-card,
+        .card,
+        .hero-specialty-card {
+            transition-duration: 0.22s;
+            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @media (max-width: 767px), (hover: none) {
+            body { background-attachment: scroll; }
+
+            .gallery-grid.gallery-marquee,
+            .testimonial-marquee {
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                scroll-snap-type: x proximity;
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
+
+            .gallery-marquee-track,
+            .testimonial-marquee-track {
+                animation: none;
+            }
+
+            .gallery-marquee-group[aria-hidden="true"],
+            .testimonial-marquee-group[aria-hidden="true"] {
+                display: none;
+            }
+
+            .gallery-marquee .gallery-item,
+            .marquee-testimonial {
+                scroll-snap-align: start;
+            }
+
+            .home-info-card,
+            .card,
+            .hero-specialty-card,
+            .filter-bar,
+            .gallery-social-links {
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -5535,34 +5758,33 @@
              */
             const handleMouseAura = () => {
                 if (!DOM.aura || window.matchMedia("(max-width: 767px)").matches) return;
-                
+
                 let currentX = 0, currentY = 0;
                 let targetX = 0, targetY = 0;
-                const ease = 0.15;
-                let auraInitialized = false;
+                let frameId = null;
+                let initialized = false;
+
+                const renderAura = () => {
+                    currentX += (targetX - currentX) * 0.2;
+                    currentY += (targetY - currentY) * 0.2;
+                    DOM.aura.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+
+                    const stillMoving = Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5;
+                    frameId = stillMoving && !document.hidden ? requestAnimationFrame(renderAura) : null;
+                };
 
                 window.addEventListener('mousemove', (e) => {
                     targetX = e.clientX;
                     targetY = e.clientY;
 
-                    if (!auraInitialized) {
-                        DOM.aura.style.opacity = 1;
+                    if (!initialized) {
+                        initialized = true;
                         currentX = targetX;
                         currentY = targetY;
-                        DOM.aura.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
-                        auraInitialized = true;
+                        DOM.aura.style.opacity = 1;
                     }
-                });
-
-                const animateAura = () => {
-                    currentX += (targetX - currentX) * ease;
-                    currentY += (targetY - currentY) * ease;
-                    
-                    DOM.aura.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
-                    
-                    requestAnimationFrame(animateAura);
-                };
-                animateAura();
+                    if (!frameId) frameId = requestAnimationFrame(renderAura);
+                }, { passive: true });
             };
 
             // --- 7. INITIALIZATION ---
@@ -5603,8 +5825,15 @@
                 // Set up popstate listener to handle browser back/forward buttons
                 window.addEventListener('popstate', () => { handleInitialNavigation(); });
 
-                // 4. Attach scroll handler for home page animation
-                window.addEventListener('scroll', handleScrollCollapse);
+                // 4. Attach a frame-throttled scroll handler for home page animation
+                let scrollFrame = null;
+                window.addEventListener('scroll', () => {
+                    if (scrollFrame) return;
+                    scrollFrame = requestAnimationFrame(() => {
+                        handleScrollCollapse();
+                        scrollFrame = null;
+                    });
+                }, { passive: true });
                 
                 // 5. Attach handlers for forms and other elements
                 if (DOM.contactForm) {
@@ -5626,6 +5855,72 @@
 
         // Start the application after the window loads
         window.addEventListener("load", window.portfolioApp.init);
+    </script>
+    <script>
+        /* Local copies prevent Instagram's expiring CDN URLs from breaking the portfolio. */
+        (() => {
+            const profileImage = 'assets/instagram/profile-instagram-hd.png';
+            const galleryImages = [
+                { caption: 'Instagram — recent post 01', url: 'assets/instagram/gallery-01.jpg' },
+                { caption: 'Instagram — recent post 02', url: 'assets/instagram/gallery-02.jpg' },
+                { caption: 'Instagram — recent post 03', url: 'assets/instagram/gallery-03.jpg' },
+                { caption: 'Instagram — recent post 04', url: 'assets/instagram/gallery-04.jpg' },
+                { caption: 'Instagram — recent post 05', url: 'assets/instagram/gallery-05.jpg' },
+                { caption: 'Instagram — recent post 06', url: 'assets/instagram/gallery-06.jpg' },
+                { caption: 'Instagram — recent post 07', url: 'assets/instagram/gallery-07.jpg' },
+                { caption: 'Instagram — recent post 08', url: 'assets/instagram/gallery-08.jpg' }
+            ];
+
+            const updateProfileImages = () => {
+                document.querySelectorAll('img[alt*="Mufasa Khan"]').forEach((image) => {
+                    image.src = profileImage;
+                    image.removeAttribute('referrerpolicy');
+                });
+                document.querySelector('meta[property="og:image"]')?.setAttribute('content', profileImage);
+                document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', profileImage);
+            };
+
+            const renderLocalGallery = () => {
+                const gallery = document.getElementById('gallery-grid');
+                if (!gallery) return;
+
+                const createGroup = (isDuplicate) => {
+                    const group = document.createElement('div');
+                    group.className = 'gallery-marquee-group';
+                    if (isDuplicate) group.setAttribute('aria-hidden', 'true');
+
+                    galleryImages.forEach((item) => {
+                        const tile = document.createElement('div');
+                        tile.className = 'gallery-item';
+                        tile.innerHTML = `<img src="${item.url}" alt="${isDuplicate ? '' : item.caption}" loading="lazy"><span class="gallery-caption"><i class="fa-brands fa-instagram" aria-hidden="true"></i>${item.caption}</span>`;
+
+                        if (!isDuplicate) {
+                            tile.tabIndex = 0;
+                            tile.setAttribute('role', 'button');
+                            tile.setAttribute('aria-label', `Open ${item.caption}`);
+                            const openImage = () => window.portfolioApp.showImageModal(item.url, item.caption);
+                            tile.addEventListener('click', openImage);
+                            tile.addEventListener('keydown', (event) => {
+                                if (event.key === 'Enter' || event.key === ' ') {
+                                    event.preventDefault();
+                                    openImage();
+                                }
+                            });
+                        }
+                        group.appendChild(tile);
+                    });
+                    return group;
+                };
+
+                const track = document.createElement('div');
+                track.className = 'gallery-marquee-track';
+                track.append(createGroup(true), createGroup(false));
+                gallery.replaceChildren(track);
+            };
+
+            document.addEventListener('DOMContentLoaded', updateProfileImages);
+            window.addEventListener('load', () => window.setTimeout(renderLocalGallery, 0));
+        })();
     </script>
 </body>
 </html>
