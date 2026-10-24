@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mufasakhan.vercel.app/sitemap.xml
