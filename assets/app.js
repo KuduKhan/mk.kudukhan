@@ -54,6 +54,7 @@
 
   var filters = Array.prototype.slice.call(document.querySelectorAll("[data-filter]"));
   var cards = Array.prototype.slice.call(document.querySelectorAll("[data-category]"));
+  var filterStatus = document.getElementById("project-filter-status");
   filters.forEach(function (button) {
     button.addEventListener("click", function () {
       var category = button.getAttribute("data-filter");
@@ -62,9 +63,14 @@
         item.classList.toggle("active", active);
         item.setAttribute("aria-pressed", String(active));
       });
+      var count = 0;
       cards.forEach(function (card) {
         card.hidden = category !== "all" && card.getAttribute("data-category") !== category;
+        if (!card.hidden) count++;
       });
+      if (filterStatus) {
+        filterStatus.textContent = "Showing " + count + (count === 1 ? " project" : " projects") + (category === "all" ? " across all categories" : " in " + button.textContent.trim());
+      }
     });
   });
 
