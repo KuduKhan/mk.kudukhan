@@ -62,6 +62,7 @@ function modal(dialog,trigger){
 [palette,brief].forEach(dialog=>{
  dialog.addEventListener("close",()=>{if(focusReturn&&focusReturn.isConnected)focusReturn.focus({preventScroll:true});focusReturn=null;});
  dialog.addEventListener("click",event=>{if(event.target===dialog)dialog.close();});
+ dialog.addEventListener("keydown",event=>{if(event.key==="Escape"){event.preventDefault();event.stopPropagation();dialog.close();}});
 });
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.close).close()));
 function render(){
