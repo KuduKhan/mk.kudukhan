@@ -37,7 +37,7 @@ test("real projects are featured without dead external links", () => {
     assert.ok(html.includes("https://github.com/KuduKhan/" + slug), "Missing project: " + slug);
   }
   assert.equal((html.match(/data-category="(?:platform|tools|experience)"/g) || []).length, 8);
-  assert.doesNotMatch(html, /href=["'](?:#|#!|javascript:)/i);
+  assert.doesNotMatch(html, /href=["'](?:#['"]|#!|javascript:)/i);
 });
 
 test("external new-tab links are protected", () => {
