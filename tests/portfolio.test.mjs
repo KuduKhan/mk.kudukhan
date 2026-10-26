@@ -5,6 +5,8 @@ import { test } from "node:test";
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../assets/styles.css", import.meta.url), "utf8");
 const js = readFileSync(new URL("../assets/app.js", import.meta.url), "utf8");
+const experience = readFileSync(new URL("../assets/experience.js", import.meta.url), "utf8");
+const premiumCss = readFileSync(new URL("../assets/premium.css", import.meta.url), "utf8");
 const files = new URL("../", import.meta.url);
 
 test("metadata, language, landmark and identity are present", () => {
@@ -62,10 +64,33 @@ test("responsive, accessibility and reduced-motion features remain intact", () =
   assert.match(html, /id="project-filter-status" role="status"/);
   assert.match(html, /aria-expanded="false"/);
   assert.match(js, /setMenu\(false\)/);
-  assert.match(js, /aria-pressed/);
+  assert.match(experience, /aria-pressed/);
 });
 
 test("script parses and CSS braces are balanced", () => {
   assert.doesNotThrow(() => new Function(js));
   assert.equal((css.match(/\{/g) || []).length, (css.match(/\}/g) || []).length);
+});
+
+test("premium navigation, mobile experience and dialogs",()=>{
+ assert.match(html,/id="command-dialog"[^>]*aria-labelledby=/);
+ assert.match(html,/id="project-dialog"[^>]*aria-labelledby=/);
+ assert.match(html,/id="quick-nav-trigger"[^>]*aria-label=/);
+ assert.match(html,/id="project-search" type="search"/);
+ assert.match(html,/id="floating-top"[^>]*aria-label="Back to top"/);
+ assert.match(experience,/event.key.toLowerCase\(\)==="k"/);
+ assert.match(experience,/event.key==="ArrowDown"/);
+ assert.match(experience,/projectSearch.addEventListener\("input",filter\)/);
+});
+test("eight searchable project briefs map to real repositories",()=>{
+ const slugs=["khanhomes","khaniversity-platform","mysoft-office","kudupray-frontend","amanah-giving-Frontend","islamtok","music-world","pukka-gen"];
+ for(const slug of slugs){assert.ok(html.includes('data-project="'+slug+'"'));assert.ok(experience.includes('slug:"'+slug+'"'));assert.ok(experience.includes("https://github.com/KuduKhan/"+slug));}
+});
+test("premium layout adapts to phones, tablets and widescreen",()=>{
+ for(const width of [360,480,720,980,1250,1800])assert.ok(premiumCss.includes("width:"+width+"px"),"Breakpoint missing "+width);
+ assert.match(premiumCss,/safe-area-inset-right/);
+ assert.match(premiumCss,/prefers-reduced-motion:reduce/);
+ assert.match(premiumCss,/prefers-contrast:more/);
+ assert.equal((premiumCss.match(/\{/g)||[]).length,(premiumCss.match(/\}/g)||[]).length);
+ assert.doesNotThrow(()=>new Function(experience));
 });

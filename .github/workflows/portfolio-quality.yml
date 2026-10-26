@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: '22'
       - name: Verify JavaScript
-        run: node --check assets/app.js
+        run: |
+          node --check assets/app.js
+          node --check assets/experience.js
       - name: Run portfolio checks
         run: node --test tests/portfolio.test.mjs
