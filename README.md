@@ -31,3 +31,9 @@ The portfolio runs without a package manager. With Node.js 22+, run `node --chec
 ## Deployment status
 
 Production releases depend on access to the existing Vercel `mk-kudukhan` project and available build capacity. Verify that the served deployment's Git commit matches `main`; GitHub merge completion alone is not deployment evidence.
+
+## Premium UX v2.2
+
+A layered UI enhancement adds assets/premium.css and assets/experience.js. The new discovery surface includes searchable projects, category filters, accessible project briefs, command navigation (Ctrl/Command+K or /), a floating top shortcut, and motion-aware reveals. Responsive styling covers narrow phones, tablets, laptops and widescreen monitors. No runtime libraries are required.
+
+Verify with node --check assets/app.js, node --check assets/experience.js and node --test tests/portfolio.test.mjs. CI static checks do not replace physical device visual verification.

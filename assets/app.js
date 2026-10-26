@@ -36,7 +36,7 @@
     menuButton.setAttribute("aria-expanded", String(open));
     menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     menu.classList.toggle("open", open);
-    if (open) { menu.removeAttribute("inert"); }
+    if (open) { menu.removeAttribute("inert"); const first = menu.querySelector("a"); if(first) first.focus(); }
     else { menu.setAttribute("inert", ""); }
   }
   menuButton.addEventListener("click", function () {
@@ -51,28 +51,9 @@
     }
   });
   window.addEventListener("resize", function () { if (window.innerWidth > 980) setMenu(false); });
+  document.addEventListener("pointerdown", function(event) { if(menuButton.getAttribute("aria-expanded")==="true" && !menu.contains(event.target) && !menuButton.contains(event.target)) setMenu(false); });
 
-  var filters = Array.prototype.slice.call(document.querySelectorAll("[data-filter]"));
-  var cards = Array.prototype.slice.call(document.querySelectorAll("[data-category]"));
-  var filterStatus = document.getElementById("project-filter-status");
-  filters.forEach(function (button) {
-    button.addEventListener("click", function () {
-      var category = button.getAttribute("data-filter");
-      filters.forEach(function (item) {
-        var active = item === button;
-        item.classList.toggle("active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      var count = 0;
-      cards.forEach(function (card) {
-        card.hidden = category !== "all" && card.getAttribute("data-category") !== category;
-        if (!card.hidden) count++;
-      });
-      if (filterStatus) {
-        filterStatus.textContent = "Showing " + count + (count === 1 ? " project" : " projects") + (category === "all" ? " across all categories" : " in " + button.textContent.trim());
-      }
-    });
-  });
+  // Discovery and filters are maintained in experience.js.
 
   function onScroll() {
     var room = document.documentElement.scrollHeight - window.innerHeight;

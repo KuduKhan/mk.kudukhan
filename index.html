@@ -21,7 +21,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/premium.css">
   <script src="/assets/app.js" defer></script>
+  <script src="/assets/experience.js" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Mufasa Khan","alternateName":"KuduKhan","url":"https://mufasakhan.vercel.app/","sameAs":["https://github.com/KuduKhan","https://www.linkedin.com/in/ommy-theboss-78a7613a4"],"jobTitle":"Full-Stack, Cloud & Cybersecurity Engineer"}
   </script>
@@ -40,6 +42,9 @@
         <a href="#work">Work</a><a href="#expertise">Expertise</a><a href="#about">About</a><a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
+        <button class="icon-button quick-nav-trigger" id="quick-nav-trigger" type="button" aria-label="Open navigation and project search" aria-haspopup="dialog" aria-controls="command-dialog" title="Quick navigation Ctrl or Command K">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 5 5"/></svg><span class="quick-nav-hint">⌘ K</span>
+        </button>
         <button class="icon-button theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light theme" title="Toggle appearance">
           <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
           <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z"/></svg>
@@ -98,39 +103,44 @@
         <button class="filter" type="button" data-filter="tools" aria-pressed="false">Developer tools</button>
         <button class="filter" type="button" data-filter="experience" aria-pressed="false">Experiences</button>
       </div>
+      <div class="project-toolbar">
+        <label class="project-search" for="project-search"><span aria-hidden="true">⌕</span><span class="sr-only">Search projects by name, category or technology</span><input id="project-search" type="search" autocomplete="off" placeholder="Search projects and technologies…" aria-controls="projects-grid"></label>
+        <p class="project-count" id="project-count" aria-hidden="true">08 PROJECTS</p>
+      </div>
+      <div class="project-empty" id="project-empty" hidden><span aria-hidden="true">⌕</span><strong>No projects match.</strong><p>Try a different search or return to all projects.</p><button id="project-reset" type="button">Clear filters ↗</button></div>
       <p class="sr-only" id="project-filter-status" role="status" aria-live="polite" aria-atomic="true">Showing all 8 projects</p>
       <div class="projects-grid" id="projects-grid">
-        <article class="project-card featured project-homes" data-category="platform">
+        <article class="project-card featured project-homes" data-category="platform" data-project="khanhomes" id="project-khanhomes">
           <div class="project-visual visual-homes"><div class="visual-grain"></div><div class="visual-topline"><span>KHANHOMES / PROPERTY OPERATIONS</span><span>01—08</span></div>
             <div class="mock-window"><div class="mock-sidebar"><span class="mock-square">K</span><span class="mock-line"></span><span class="mock-line short"></span><span class="mock-line"></span></div><div class="mock-body"><div class="mock-row"><strong>Portfolio overview</strong><span>◌ ◌ ◌</span></div><div class="mock-metrics"><span><b>PROPERTIES</b><em>24</em></span><span><b>LEASES</b><em>18</em></span><span><b>REQUESTS</b><em>06</em></span></div><div class="mock-chart"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
             <div class="visual-watermark">KH.</div>
           </div>
           <div class="project-content"><div class="project-meta"><span>01 / PROPERTY TECHNOLOGY</span><span class="status">ACTIVE DEVELOPMENT</span></div><div class="project-heading"><h3>KhanHomes</h3><a class="round-link" href="https://khanhomes.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit KhanHomes website">↗</a></div><p>Kenya-first property management software with lease workflows, maintenance queues, tenant communication and an evolving operations studio.</p><div class="project-foot"><div class="tags"><span>Next.js</span><span>TypeScript</span><span>Supabase</span></div><a href="https://github.com/KuduKhan/khanhomes" target="_blank" rel="noopener noreferrer" class="text-link">View source ↗</a></div></div>
         </article>
-        <article class="project-card featured project-uni" data-category="platform">
+        <article class="project-card featured project-uni" data-category="platform" data-project="khaniversity-platform" id="project-khaniversity-platform">
           <div class="project-visual visual-uni"><div class="visual-grain"></div><div class="visual-topline"><span>KHANIVERSITY / LEARNING PLATFORM</span><span>02—08</span></div>
             <div class="uni-art"><div class="uni-ring ring-a"></div><div class="uni-ring ring-b"></div><div class="uni-ring ring-c"></div><div class="uni-seal">K<span>✳</span>V</div><div class="uni-caption">KNOWLEDGE <span>→</span> PRACTICE</div></div>
             <div class="visual-watermark">KV.</div>
           </div>
           <div class="project-content"><div class="project-meta"><span>02 / EDUCATION TECHNOLOGY</span><span class="status">LEARNING PREVIEW</span></div><div class="project-heading"><h3>KHANIVERSITY</h3><a class="round-link" href="https://github.com/KuduKhan/khaniversity-platform" target="_blank" rel="noopener noreferrer" aria-label="Explore KHANIVERSITY on GitHub">↗</a></div><p>A virtual learning environment with course pathways, coding exercises, peer cohorts, capstones and a hands-on computer science curriculum.</p><div class="project-foot"><div class="tags"><span>Next.js</span><span>Education</span><span>Supabase</span></div><a href="https://github.com/KuduKhan/khaniversity-platform" target="_blank" rel="noopener noreferrer" class="text-link">View source ↗</a></div></div>
         </article>
-        <article class="project-card wide project-office" data-category="tools">
+        <article class="project-card wide project-office" data-category="tools" data-project="mysoft-office" id="project-mysoft-office">
           <div class="project-visual visual-office"><div class="visual-topline"><span>MYSOFT / CREATIVE PRODUCTIVITY</span><span>03—08</span></div><div class="office-art"><div class="office-window office-back"><div class="fake-top"></div><div class="fake-slide"><span></span><span></span><span></span></div></div><div class="office-window office-front"><div class="fake-top"><i></i><i></i><i></i><span>mysoft / docs</span></div><div class="doc-article"><b>Ideas deserve better tools.</b><span class="doc-line long"></span><span class="doc-line"></span><span class="doc-line medium"></span><span class="doc-line long"></span><span class="doc-line short"></span></div></div></div></div>
           <div class="project-content"><div class="project-meta"><span>03 / PRODUCTIVITY ENGINEERING</span><span class="status">ITERATIVE RELEASES</span></div><div class="project-heading"><h3>MySoft Office</h3><a class="round-link" href="https://github.com/KuduKhan/mysoft-office" target="_blank" rel="noopener noreferrer" aria-label="Explore MySoft Office on GitHub">↗</a></div><p>An ambitious collection of document, spreadsheet, presentation and note editors with ongoing improvements in Office-format interoperability.</p><div class="project-foot"><div class="tags"><span>Documents</span><span>Spreadsheets</span><span>Editors</span></div><a href="https://github.com/KuduKhan/mysoft-office" target="_blank" rel="noopener noreferrer" class="text-link">View source ↗</a></div></div>
         </article>
-        <article class="project-card compact" data-category="experience">
+        <article class="project-card compact" data-category="experience" data-project="kudupray-frontend" id="project-kudupray-frontend">
           <div class="compact-icon icon-pray">☪</div><div class="project-meta"><span>04 / FAITH &amp; UTILITY</span></div><h3>KuduPray <a href="https://github.com/KuduKhan/kudupray-frontend" aria-label="KuduPray GitHub repository" target="_blank" rel="noopener noreferrer">↗</a></h3><p>A digital Islamic companion bringing Qur'an reading, prayer tools and daily guidance into one experience.</p><div class="tags"><span>Next.js</span><span>Web app</span></div>
         </article>
-        <article class="project-card compact" data-category="platform">
+        <article class="project-card compact" data-category="platform" data-project="amanah-giving-Frontend" id="project-amanah-giving-frontend">
           <div class="compact-icon icon-amanah">✺</div><div class="project-meta"><span>05 / GIVING TECHNOLOGY</span></div><h3>Amanah Giving <a href="https://github.com/KuduKhan/amanah-giving-Frontend" aria-label="Amanah Giving GitHub repository" target="_blank" rel="noopener noreferrer">↗</a></h3><p>Giving-platform prototype with campaign discovery, Zakat workflows and donor journeys. Financial flows are simulations, not live payments.</p><div class="tags"><span>Next.js</span><span>Social impact</span></div>
         </article>
-        <article class="project-card compact" data-category="platform">
+        <article class="project-card compact" data-category="platform" data-project="islamtok" id="project-islamtok">
           <div class="compact-icon icon-tok">◈</div><div class="project-meta"><span>06 / CREATOR PLATFORM</span></div><h3>IslamTok <a href="https://github.com/KuduKhan/islamtok" aria-label="IslamTok GitHub repository" target="_blank" rel="noopener noreferrer">↗</a></h3><p>A moderated short-video ecosystem with a creator interface, mobile application and API foundation.</p><div class="tags"><span>Expo</span><span>NestJS</span></div>
         </article>
-        <article class="project-card compact" data-category="experience">
+        <article class="project-card compact" data-category="experience" data-project="music-world" id="project-music-world">
           <div class="compact-icon icon-music">♫</div><div class="project-meta"><span>07 / MEDIA DISCOVERY</span></div><h3>Music World <a href="https://github.com/KuduKhan/music-world" aria-label="Music World GitHub repository" target="_blank" rel="noopener noreferrer">↗</a></h3><p>A responsive space for discovering music, performers and live experiences with a lightweight backend.</p><div class="tags"><span>Node.js</span><span>Discovery</span></div>
         </article>
-        <article class="project-card compact" data-category="experience">
+        <article class="project-card compact" data-category="experience" data-project="pukka-gen" id="project-pukka-gen">
           <div class="compact-icon icon-pukka">PG</div><div class="project-meta"><span>08 / CREATIVE WEB</span></div><h3>Pukka Gen <a href="https://github.com/KuduKhan/pukka-gen" aria-label="Pukka Gen GitHub repository" target="_blank" rel="noopener noreferrer">↗</a></h3><p>A TypeScript-powered web experience developed with Vite, focused on presentation and interaction.</p><div class="tags"><span>Vite</span><span>TypeScript</span></div>
         </article>
       </div>
@@ -158,6 +168,19 @@
     <section id="contact" class="section shell contact-section" aria-labelledby="contact-title"><div class="contact-main"><p class="kicker"><span>04 / </span> WHAT'S NEXT?</p><h2 id="contact-title">Have a challenge?<br><span>Let's build</span> <em>better.</em></h2><p>Whether you're shaping a product, exploring a collaboration, or solving a complex technical problem, I'd like to hear about it.</p><a class="contact-email" href="mailto:karim.omar3130@gmail.com?subject=Let's%20build%20something">karim.omar3130@gmail.com <span>↗</span></a><div class="contact-actions"><button id="copy-email" class="button secondary" type="button" data-email="karim.omar3130@gmail.com">Copy email <span aria-hidden="true">⧉</span></button><a class="button outline" href="https://www.linkedin.com/in/ommy-theboss-78a7613a4" target="_blank" rel="noopener noreferrer">Connect on LinkedIn ↗</a></div></div><div class="contact-side"><div class="contact-orbit">✳</div><span>GOT AN IDEA?</span><strong>Let's make<br>it happen.</strong><div class="contact-bottom"><span>REACH OUT ANYTIME</span><span>↗</span></div></div></section>
   </main>
   <footer class="site-footer"><div class="shell"><div class="footer-main"><a class="brand" href="#home" aria-label="Mufasa Khan back to top"><span class="brand-mark"><span>MK</span></span><span class="brand-copy"><strong>MUFASA<span class="brand-dot">.</span></strong><small>BUILD. SCALE. PROTECT.</small></span></a><p>Crafted with intention.<br>Engineered to keep evolving.</p><div class="footer-links"><a href="https://github.com/KuduKhan" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/ommy-theboss-78a7613a4" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="mailto:karim.omar3130@gmail.com">Email ↗</a></div></div><div class="footer-bottom"><span>© <span id="year">2026</span> MUFASA KHAN / KUDUKHAN</span><span>INDEPENDENT ENGINEER &amp; BUILDER</span><a href="#top">BACK TO TOP ↑</a></div></div></footer>
+  <dialog class="studio-dialog command-dialog" id="command-dialog" aria-labelledby="command-title">
+    <div class="dialog-inner"><div class="dialog-header"><div><p class="dialog-eyebrow">STUDIO NAVIGATION</p><h2 id="command-title">Explore the studio<span>.</span></h2></div><button type="button" class="dialog-close" data-close="command-dialog" aria-label="Close navigation">✕</button></div>
+    <label class="command-search" for="command-search"><span aria-hidden="true">⌕</span><input id="command-search" type="search" autocomplete="off" placeholder="Find projects, topics or sections…" aria-controls="command-results"><kbd>↵</kbd></label>
+    <div class="command-results" id="command-results"></div><p class="dialog-hint">↑ ↓ Navigate · Enter Open · Esc Close · Ctrl/⌘ K Search</p></div>
+  </dialog>
+  <dialog class="studio-dialog project-dialog" id="project-dialog" aria-labelledby="brief-title" aria-describedby="brief-description">
+    <div class="dialog-inner"><div class="dialog-header"><div><p class="dialog-eyebrow" id="brief-category">SELECTED WORK</p><h2 id="brief-title">Project brief</h2></div><button type="button" class="dialog-close" data-close="project-dialog" aria-label="Close project brief">✕</button></div>
+    <p class="brief-status" id="brief-status"></p><p class="brief-description" id="brief-description"></p>
+    <div class="brief-panel"><strong>PROJECT FOCUS</strong><ul id="brief-highlights"></ul></div><div class="brief-tags" id="brief-tags"></div>
+    <div class="brief-actions"><a id="brief-source" class="button primary" target="_blank" rel="noopener noreferrer" href="https://github.com/KuduKhan">View source ↗</a><a id="brief-site" class="button outline" target="_blank" rel="noopener noreferrer" href="https://khanhomes.vercel.app/" hidden>Open website ↗</a></div>
+    <p class="brief-disclaimer">Descriptions summarize published repository work; prototypes and previews are not production certifications.</p></div>
+  </dialog>
+  <button id="floating-top" class="floating-top" type="button" aria-label="Back to top" inert>↑</button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
