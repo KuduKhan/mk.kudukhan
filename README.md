@@ -23,3 +23,11 @@ The Vercel project `mk-kudukhan` uses the GitHub repository `KuduKhan/mk.kudukha
 
 ## Content accuracy
 Product visuals are illustrative compositions made with CSS, not screenshots or claims of tested production readiness. The public contact email and social links were retained from the previous portfolio. Update biographies and project labels as releases evolve.
+
+## Quality gate
+
+The portfolio runs without a package manager. With Node.js 22+, run `node --check assets/app.js` and `node --test tests/portfolio.test.mjs`. GitHub Actions runs these on pull requests and commits to `main`. Tests check navigation integrity, known projects, local assets, link security, responsive styling, accessibility affordances and script parsing. These static checks supplement (but do not replace) a browser/device QA pass.
+
+## Deployment status
+
+Production releases depend on access to the existing Vercel `mk-kudukhan` project and available build capacity. Verify that the served deployment's Git commit matches `main`; GitHub merge completion alone is not deployment evidence.
