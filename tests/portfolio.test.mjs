@@ -153,7 +153,7 @@ test("v2.5 stories use source-backed case studies, an authentic screenshot manif
  for(const slug of pages){
   const filename="../case-studies/"+slug+".html";
   const detail=readFileSync(new URL(filename,import.meta.url),"utf8");
-  assert.match(html,new RegExp("href=\\"/case-studies/"+slug+"\\\\.html\\""),"Missing homepage case link for "+slug);
+  assert.ok(html.includes('href="/case-studies/'+slug+'.html"'),"Missing homepage case link for "+slug);
   assert.match(detail,/class="case-story"/);
   assert.match(detail,/id="challenge"/);
   assert.match(detail,/id="approach"/);
