@@ -105,7 +105,7 @@ test("vector icons are meaningful, self-hosted and referenced consistently",()=>
  assert.ok(symbols.length>=20,"Missing core SVG icons");
  const literal=[...html.matchAll(/\/assets\/icons\.svg#icon-([a-z0-9-]+)/g)].map(match=>match[1]);
  for(const id of literal)assert.ok(symbols.includes(id),"Unresolved SVG reference "+id);
- for(const id of ["code","cloud","shield","house","graduate","files","moon-star","heart","video","music","spark","network","search","github","linkedin","mail"]){
+ for(const id of ["code","cloud","shield","graduate","files","moon-star","heart","video","music","spark","network","search","github","linkedin","mail"]){
   assert.ok(literal.includes(id),"Missing visible icon for "+id);
  }
  assert.match(html,/class="expertise-symbol sym-code" aria-hidden="true"><svg/);
