@@ -45,7 +45,7 @@ try {
         if(el.hidden||getComputedStyle(el).display==="none")return false;
         const rect=el.getBoundingClientRect();
         if(rect.right<=vw+3&&rect.left>=-3)return false;
-        for(let p=el.parentElement;p;p=p.parentElement){
+        for(let p=el.parentElement;p && p!==document.body && p!==document.documentElement;p=p.parentElement){
           const css=getComputedStyle(p);
           if(["hidden","clip","scroll","auto"].includes(css.overflowX))return false;
         }

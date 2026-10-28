@@ -113,3 +113,6 @@ button .ui-icon,a .ui-icon{transition:transform .26s var(--micro-ease)}
 .hero-circuit{transform:none!important;transition:none!important}
 .button .ui-icon,a .ui-icon,.visual-project-icon,.expertise-symbol,.compact-icon,.brand-mark{transition:none!important}
 }
+
+/* Decorative halo must remain inside the hero viewport on compact screens. */
+@media(max-width:980px){.hero-glow{width:100%;max-width:100%;right:0}}
