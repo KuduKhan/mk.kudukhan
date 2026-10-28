@@ -181,3 +181,5 @@
 .case-index-card:hover,.case-index-card:hover .case-index-arrow,.case-decisions li:hover,.case-proof a:hover{transform:none!important}
 }
 @media print{.resume-sheet{box-shadow:none!important;border-radius:0!important}.resume-paper-section,.resume-experience>div{animation:none!important;transform:none!important;opacity:1!important}}
+
+.case-index-card h2 .case-index-title{flex:1 1 auto;min-width:0}

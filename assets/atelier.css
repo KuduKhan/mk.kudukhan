@@ -302,3 +302,9 @@ button .ui-icon,a .ui-icon{transition:transform .26s var(--micro-ease)}
 :root.motion-paused .button::after{transition:none!important;opacity:0!important}
 :root.motion-paused .project-card,:root.motion-paused .expertise-card,:root.motion-paused .evidence-tile,:root.motion-paused .resume-values>div,:root.motion-paused .filter,:root.motion-paused .button,:root.motion-paused .ui-icon{transition:none!important}
 :root.motion-paused .project-card:hover,:root.motion-paused .evidence-tile:hover,:root.motion-paused .resume-values>div:hover,:root.motion-paused .expertise-card:hover,:root.motion-paused .filter:hover,:root.motion-paused .button:hover{transform:none!important}
+
+/* Icon display overrides use stronger specificity than the shared .ui-icon rule. */
+:root:not([data-theme="light"]) .theme-sun.ui-icon{display:none}
+:root[data-theme="light"] .theme-sun.ui-icon{display:inline-block}
+:root[data-theme="light"] .theme-moon.ui-icon{display:none}
+:root:not([data-theme="light"]) .theme-moon.ui-icon{display:inline-block}
