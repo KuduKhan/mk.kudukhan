@@ -77,6 +77,7 @@ try {
 
     // Device breakpoints: mobile navigation and theme responsiveness.
     if(width<=980) {
+      assert.equal(await page.locator(".header-cta").isVisible(),false,width+"px desktop CTA must be hidden");
       await page.locator("#menu-toggle").click();
       assert.equal(await page.locator("#menu-toggle").getAttribute("aria-expanded"),"true");
       await page.locator("#mobile-nav a[href='#about']").click();

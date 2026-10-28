@@ -82,7 +82,7 @@ button .ui-icon,a .ui-icon{transition:transform .26s var(--micro-ease)}
 .mobile-link-label>.ui-icon{width:24px;height:24px;color:var(--accent);flex:none}
 .mobile-link-tail{display:flex;gap:15px;align-items:center;color:var(--subtle)!important;font-size:11px!important}
 .mobile-link-tail .ui-icon{color:var(--accent);width:17px;height:17px}
-.header-actions{gap:8px}.hero{gap:clamp(38px,6vw,65px)}.hero-art{justify-self:center!important}
+.header-actions{gap:8px}.site-header .header-cta{display:none}.hero{gap:clamp(38px,6vw,65px)}.hero-art{justify-self:center!important}
 }
 @media(max-width:720px){
 .section{padding-block:clamp(66px,11vw,88px)}.hero h1{line-height:1.15}
