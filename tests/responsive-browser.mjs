@@ -39,7 +39,20 @@ try {
     assert.ok(svgCheck.width>0 && svgCheck.height>0,width+"px SVG did not render geometry");
     assert.ok(svgCheck.visible>10,width+"px icons are too small");
     const documentOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
-    assert.ok(documentOverflow<=2,width+"px horizontal page overflow "+documentOverflow);
+    const overflowDetails=await page.evaluate(()=>{
+      const vw=document.documentElement.clientWidth;
+      return [...document.body.querySelectorAll("*")].filter(el=>{
+        if(el.hidden||getComputedStyle(el).display==="none")return false;
+        const rect=el.getBoundingClientRect();
+        if(rect.right<=vw+3&&rect.left>=-3)return false;
+        for(let p=el.parentElement;p;p=p.parentElement){
+          const css=getComputedStyle(p);
+          if(["hidden","clip","scroll","auto"].includes(css.overflowX))return false;
+        }
+        return true;
+      }).map(el=>({tag:el.tagName,cls:typeof el.className==="string"?el.className.slice(0,70):"",right:Math.round(el.getBoundingClientRect().right),left:Math.round(el.getBoundingClientRect().left)})).slice(0,14);
+    });
+    assert.ok(documentOverflow<=2,width+"px horizontal page overflow "+documentOverflow+" offenders="+JSON.stringify(overflowDetails));
 
     // Test category + text filter together and empty-state recovery.
     await page.locator("#project-search").fill("KhanHomes");
