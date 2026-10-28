@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
 const browser = await chromium.launch({headless:true});
-const widths = [320,360,390,480,768,1024,1440,1920];
+const widths = [320,360,375,390,414,480,768,820,1024,1280,1440,1920,2560];
 try {
   for (const width of widths) {
     const context=await browser.newContext({
@@ -14,6 +14,10 @@ try {
     page.on("pageerror",e=>errors.push(e.message));
     await page.goto("http://127.0.0.1:4173/",{waitUntil:"domcontentloaded",timeout:30000});
     await page.waitForFunction(()=>document.querySelectorAll(".project-brief-trigger").length===8);
+    const cssLinks=await page.locator('link[rel="stylesheet"][href^="/assets/"]').count();
+    assert.equal(cssLinks,1,width+"px expected one consolidated local stylesheet");
+    assert.ok((await page.locator('.site-header').evaluate(el=>getComputedStyle(el).position))==="sticky");
+
     const clipping=await page.evaluate(()=>{
       const viewport=document.documentElement.clientWidth;
       const selectors=[".site-header",".hero",".hero-copy",".hero-art",".section-top",".project-toolbar",".projects-grid",".project-card",".expertise-grid",".about-copy",".contact-main",".footer-main"];
@@ -86,6 +90,12 @@ try {
     const oldTheme=await page.locator("html").getAttribute("data-theme");
     await page.locator("#theme-toggle").click();
     assert.notEqual(await page.locator("html").getAttribute("data-theme"),oldTheme,width+"px theme toggle");
+    if(width===390||width===1440){
+      const mode=await page.locator("html").getAttribute("data-theme");
+      assert.equal(mode,"light",width+"px light theme");
+      const colors=await page.locator("body").evaluate(el=>({fg:getComputedStyle(el).color,bg:getComputedStyle(el).backgroundColor}));
+      assert.notEqual(colors.fg,colors.bg,width+"px invalid light theme contrast baseline");
+    }
     console.log("PASS",width+"px — layout, filtering, dialogs, keyboard, navigation, theme");
     await context.close();
   }

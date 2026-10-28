@@ -45,3 +45,13 @@ The site now includes a self-hosted, reusable outline SVG sprite with consistent
 `assets/atelier.css` adds spacing/alignment refinements, vector sizing, focus and hover responses, lightweight card spotlighting, navigation indicators and narrow-phone adjustments. `assets/atelier.js` adds restrained pointer parallax and a persistent pause/resume control for decorative motion; reduced-motion system settings take precedence. Email copying has a fallback and user-visible success feedback. The UI has no new runtime dependencies.
 
 CI validates SVG references and geometry, 8 responsive viewport widths, project navigation and filters, popups, theme controls and motion on/off. Review device screenshots separately before considering cosmetic quality subjective claims final.
+
+## Portfolio v2.4 — Reliability & responsive baseline
+
+The v2.4 release consolidates all three authored CSS layers into one deployable `assets/portfolio.css` while retaining `assets/styles.css`, `assets/premium.css`, and `assets/atelier.css` as the editable source layers in the same cascade order. `node scripts/build-css.mjs` regenerates the bundle deterministically; `node scripts/build-css.mjs --check` prevents a stale bundle from reaching deployment. The static quality workflow enforces this check.
+
+The responsive stylesheet adds component-level minimum-width safeguards, mobile header visibility invariants, consistent touch-target rules, project action wrapping, light-theme focus clarity, and reduced-motion-respecting filter behavior. Chromium tests cover widths from 320 to 2560px, check document overflow and icon geometry, and validate interactions and theme behavior.
+
+### Production release gate
+
+Do **not** assume a GitHub merge publishes production. The existing Vercel project `mk-kudukhan` and alias `mufasakhan.vercel.app` must point to the exact merged main commit. Vercel's currently connected integration can list/inspect this project and deploy previews, but a previous production API call returned HTTP 403. An authorized Vercel team member must verify the project Git Settings, production branch `main`, whether automatic production deployments are paused/disabled, and Git integration write permissions. Use the Vercel dashboard to deploy the reviewed `main` commit if automation is not authorized. Avoid creating a duplicate project or moving the existing domain until those permissions are resolved.
