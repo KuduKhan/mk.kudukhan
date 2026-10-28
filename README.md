@@ -37,3 +37,11 @@ Production releases depend on access to the existing Vercel `mk-kudukhan` projec
 A layered UI enhancement adds assets/premium.css and assets/experience.js. The new discovery surface includes searchable projects, category filters, accessible project briefs, command navigation (Ctrl/Command+K or /), a floating top shortcut, and motion-aware reveals. Responsive styling covers narrow phones, tablets, laptops and widescreen monitors. No runtime libraries are required.
 
 Verify with node --check assets/app.js, node --check assets/experience.js and node --test tests/portfolio.test.mjs. CI static checks do not replace physical device visual verification.
+
+## Atelier polish — v2.3 (October 2026)
+
+The site now includes a self-hosted, reusable outline SVG sprite with consistent icons for navigation, contact, source links, engineering skills and eight project visuals. The hero's circuit diagram represents interconnected systems and is decorative. The overlay concept illustrations do not represent real customer metrics.
+
+`assets/atelier.css` adds spacing/alignment refinements, vector sizing, focus and hover responses, lightweight card spotlighting, navigation indicators and narrow-phone adjustments. `assets/atelier.js` adds restrained pointer parallax and a persistent pause/resume control for decorative motion; reduced-motion system settings take precedence. Email copying has a fallback and user-visible success feedback. The UI has no new runtime dependencies.
+
+CI validates SVG references and geometry, 8 responsive viewport widths, project navigation and filters, popups, theme controls and motion on/off. Review device screenshots separately before considering cosmetic quality subjective claims final.

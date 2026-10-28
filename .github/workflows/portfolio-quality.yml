@@ -26,5 +26,6 @@ jobs:
         run: |
           node --check assets/app.js
           node --check assets/experience.js
+          node --check assets/atelier.js
       - name: Run portfolio checks
         run: node --test tests/portfolio.test.mjs
