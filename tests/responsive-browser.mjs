@@ -26,6 +26,20 @@ try {
     assert.deepEqual(clipping,[],width+"px clipping in major layout surfaces");
     assert.equal(errors.length,0,width+"px uncaught errors: "+errors.join(" | "));
     assert.equal(await page.locator(".project-card").count(),8);
+    const svgCheck=await page.evaluate(async ()=>{
+      const response=await fetch("/assets/icons.svg");
+      const text=await response.text();
+      const symbols=new DOMParser().parseFromString(text,"image/svg+xml").querySelectorAll("symbol").length;
+      const icon=document.querySelector(".expertise-symbol .ui-icon");
+      const bounds=icon.getBBox();
+      return {status:response.status,symbols,width:bounds.width,height:bounds.height,visible:icon.getBoundingClientRect().width};
+    });
+    assert.equal(svgCheck.status,200,width+"px sprite unavailable");
+    assert.ok(svgCheck.symbols>=20,width+"px missing icon symbols");
+    assert.ok(svgCheck.width>0 && svgCheck.height>0,width+"px SVG did not render geometry");
+    assert.ok(svgCheck.visible>10,width+"px icons are too small");
+    const documentOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    assert.ok(documentOverflow<=2,width+"px horizontal page overflow "+documentOverflow);
 
     // Test category + text filter together and empty-state recovery.
     await page.locator("#project-search").fill("KhanHomes");
@@ -61,6 +75,20 @@ try {
     console.log("PASS",width+"px — layout, filtering, dialogs, keyboard, navigation, theme");
     await context.close();
   }
+  const motionContext=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:"no-preference",colorScheme:"dark"});
+  const motionPage=await motionContext.newPage();
+  await motionPage.goto("http://127.0.0.1:4173/",{waitUntil:"domcontentloaded"});
+  await motionPage.locator("#motion-control").waitFor({state:"visible"});
+  assert.equal(await motionPage.locator("#motion-control").getAttribute("aria-pressed"),"false");
+  await motionPage.locator("#motion-control").click();
+  assert.equal(await motionPage.locator("#motion-control").getAttribute("aria-pressed"),"true");
+  assert.equal(await motionPage.locator(".orbit-outer").evaluate(el=>getComputedStyle(el).animationPlayState),"paused");
+  await motionPage.locator("#motion-control").click();
+  assert.equal(await motionPage.locator("#motion-control").getAttribute("aria-pressed"),"false");
+  const iconUse=await motionPage.locator("#motion-control use").getAttribute("href");
+  assert.equal(iconUse,"/assets/icons.svg#icon-pause");
+  console.log("PASS motion on/off, SVG control, keyboard semantics and preference persistence");
+  await motionContext.close();
 } finally {
   await browser.close();
 }

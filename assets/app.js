@@ -91,10 +91,34 @@
   }
   copyButton.addEventListener("click", function () {
     var email = copyButton.getAttribute("data-email");
+    function copied() {
+      notify("Email copied to clipboard");
+      copyButton.classList.add("is-copied");
+      var icon = copyButton.querySelector("use");
+      if (icon) icon.setAttribute("href", "/assets/icons.svg#icon-check");
+      setTimeout(function () {
+        copyButton.classList.remove("is-copied");
+        if (icon) icon.setAttribute("href", "/assets/icons.svg#icon-copy");
+      }, 1800);
+    }
+    function fallback() {
+      var area = document.createElement("textarea");
+      area.value = email;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      var success = false;
+      try { success = document.execCommand("copy"); } catch (err) { /* Clipboard may be restricted. */ }
+      area.remove();
+      if (success) copied();
+      else notify("Select the email address above to copy");
+    }
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(email).then(function () { notify("Email copied to clipboard"); }).catch(function () { notify("Copy the email address shown above"); });
+      navigator.clipboard.writeText(email).then(copied).catch(fallback);
     } else {
-      notify("Select the email address above to copy");
+      fallback();
     }
   });
   document.getElementById("year").textContent = String(new Date().getFullYear());

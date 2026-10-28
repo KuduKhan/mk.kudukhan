@@ -33,6 +33,17 @@ const nav=[
 {title:"About",description:"Background and principles",href:"#about"},
 {title:"Contact",description:"Start a conversation",href:"#contact"}];
 const entries=nav.concat(projects.map(p=>({title:p.title,description:p.field+" · "+p.stack.join(", "),href:"#project-"+p.slug.toLowerCase()})));
+function svgIcon(name){
+ const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+ svg.setAttribute("class","ui-icon");svg.setAttribute("viewBox","0 0 24 24");
+ svg.setAttribute("fill","none");svg.setAttribute("stroke","currentColor");
+ svg.setAttribute("stroke-width","1.8");svg.setAttribute("stroke-linecap","round");
+ svg.setAttribute("stroke-linejoin","round");svg.setAttribute("aria-hidden","true");
+ svg.setAttribute("focusable","false");
+ const use=document.createElementNS("http://www.w3.org/2000/svg","use");
+ use.setAttribute("href","/assets/icons.svg#icon-"+name);
+ svg.append(use);return svg;
+}
 function filter(){
  const selected=filters.find(b=>b.getAttribute("aria-pressed")==="true");
  const category=selected?selected.dataset.filter:"all",query=projectSearch.value.trim().toLocaleLowerCase();
@@ -76,7 +87,7 @@ function render(){
   const copy=document.createElement("span");copy.className="command-copy";
   const title=document.createElement("strong");title.textContent=entry.title;
   const desc=document.createElement("small");desc.textContent=entry.description;
-  copy.append(title,desc);const arrow=document.createElement("span");arrow.textContent="↗";arrow.setAttribute("aria-hidden","true");
+  copy.append(title,desc);const arrow=document.createElement("span");arrow.append(svgIcon("arrow-up-right"));arrow.setAttribute("aria-hidden","true");
   link.append(mark,copy,arrow);link.addEventListener("click",()=>palette.close());results.append(link);
  });
 }
@@ -102,7 +113,7 @@ cards.forEach(card=>{
  const button=document.createElement("button");button.type="button";button.className="project-brief-trigger";button.setAttribute("aria-label","Read "+p.title+" project brief");
  button.setAttribute("aria-haspopup","dialog");button.setAttribute("aria-controls","project-dialog");
  button.append(document.createTextNode("Project brief "));
- const arrow=document.createElement("span");arrow.className="brief-arrow";arrow.textContent="↗";arrow.setAttribute("aria-hidden","true");button.append(arrow);
+ const arrow=document.createElement("span");arrow.className="brief-arrow";arrow.append(svgIcon("arrow-up-right"));arrow.setAttribute("aria-hidden","true");button.append(arrow);
  button.addEventListener("click",()=>{
   document.getElementById("brief-category").textContent=p.field.toUpperCase()+" / PROJECT BRIEF";
   document.getElementById("brief-title").textContent=p.title;

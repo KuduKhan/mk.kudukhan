@@ -7,6 +7,9 @@ const css = readFileSync(new URL("../assets/styles.css", import.meta.url), "utf8
 const js = readFileSync(new URL("../assets/app.js", import.meta.url), "utf8");
 const experience = readFileSync(new URL("../assets/experience.js", import.meta.url), "utf8");
 const premiumCss = readFileSync(new URL("../assets/premium.css", import.meta.url), "utf8");
+const atelierCss = readFileSync(new URL("../assets/atelier.css", import.meta.url), "utf8");
+const atelierJs = readFileSync(new URL("../assets/atelier.js", import.meta.url), "utf8");
+const icons = readFileSync(new URL("../assets/icons.svg", import.meta.url), "utf8");
 const files = new URL("../", import.meta.url);
 
 test("metadata, language, landmark and identity are present", () => {
@@ -93,4 +96,30 @@ test("premium layout adapts to phones, tablets and widescreen",()=>{
  assert.match(premiumCss,/prefers-contrast:more/);
  assert.equal((premiumCss.match(/\{/g)||[]).length,(premiumCss.match(/\}/g)||[]).length);
  assert.doesNotThrow(()=>new Function(experience));
+});
+
+test("vector icons are meaningful, self-hosted and referenced consistently",()=>{
+ const symbols=[...icons.matchAll(/<symbol id="icon-([a-z0-9-]+)"/g)].map(match=>match[1]);
+ assert.equal(new Set(symbols).size,symbols.length,"Duplicate sprite IDs");
+ assert.ok(symbols.length>=20,"Missing core SVG icons");
+ const literal=[...html.matchAll(/\/assets\/icons\.svg#icon-([a-z0-9-]+)/g)].map(match=>match[1]);
+ for(const id of literal)assert.ok(symbols.includes(id),"Unresolved SVG reference "+id);
+ for(const id of ["code","cloud","shield","house","graduate","files","moon-star","heart","video","music","spark","network","search","github","linkedin","mail"]){
+  assert.ok(literal.includes(id),"Missing visible icon for "+id);
+ }
+ assert.match(html,/class="expertise-symbol sym-code" aria-hidden="true"><svg/);
+ assert.match(html,/id="motion-control"[^>]+aria-label=/);
+ assert.match(html,/class="hero-circuit" viewBox="0 0 600 600"/);
+ assert.equal((html.match(/class="compact-icon /g)||[]).length,5);
+ assert.doesNotMatch(html,/<div class="compact-icon [^"]*">[^<]+<\/div>/);
+});
+test("decorative motion remains optional and browser scripts parse",()=>{
+ assert.match(atelierCss,/@media\(prefers-reduced-motion:reduce\)/);
+ assert.match(atelierCss,/:root\.motion-paused/);
+ assert.match(atelierJs,/localStorage\.setItem/);
+ assert.match(atelierJs,/reduced\.matches/);
+ assert.match(atelierJs,/pointermove/);
+ assert.match(experience,/svgIcon\("arrow-up-right"\)/);
+ assert.doesNotThrow(()=>new Function(atelierJs));
+ assert.equal((atelierCss.match(/\{/g)||[]).length,(atelierCss.match(/\}/g)||[]).length);
 });
