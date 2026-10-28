@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mufasakhan.vercel.app/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://mufasakhan.vercel.app/</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/case-studies/</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/case-studies/khanhomes.html</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/case-studies/khaniversity.html</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/case-studies/mysoft-office.html</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/case-studies/kudupray.html</loc></url>
+  <url><loc>https://mufasakhan.vercel.app/resume.html</loc></url>
 </urlset>

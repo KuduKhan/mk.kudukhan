@@ -31,6 +31,8 @@ const nav=[
 {title:"Selected work",description:"Projects and platforms",href:"#work"},
 {title:"Expertise",description:"Engineering and security",href:"#expertise"},
 {title:"About",description:"Background and principles",href:"#about"},
+{title:"Résumé",description:"Project-led profile",href:"#resume"},
+{title:"Case studies",description:"Documented engineering decisions",href:"/case-studies/"},
 {title:"Contact",description:"Start a conversation",href:"#contact"}];
 const entries=nav.concat(projects.map(p=>({title:p.title,description:p.field+" · "+p.stack.join(", "),href:"#project-"+p.slug.toLowerCase()})));
 function svgIcon(name){

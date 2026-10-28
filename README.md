@@ -55,3 +55,13 @@ The responsive stylesheet adds component-level minimum-width safeguards, mobile 
 ### Production release gate
 
 Do **not** assume a GitHub merge publishes production. The existing Vercel project `mk-kudukhan` and alias `mufasakhan.vercel.app` must point to the exact merged main commit. Vercel's currently connected integration can list/inspect this project and deploy previews, but a previous production API call returned HTTP 403. An authorized Vercel team member must verify the project Git Settings, production branch `main`, whether automatic production deployments are paused/disabled, and Git integration write permissions. Use the Vercel dashboard to deploy the reviewed `main` commit if automation is not authorized. Avoid creating a duplicate project or moving the existing domain until those permissions are resolved.
+
+## v2.5 — Evidence-first case studies, verified captures and résumé (October 2026)
+
+Four standalone, source-backed pages now exist under `/case-studies/`: KhanHomes, KHANIVERSITY, MySoft Office, and KuduPray. Each describes the user problem, implementation decisions, source proof, documented boundaries and next engineering gates, and links to its project repository. The homepage adds direct case-study links and a gallery of **authentic automated captures** from public KhanHomes, KuduPray and Amanah Giving landing pages, with exact source URLs and viewport metadata in `assets/showcase/manifest.json` (captured 28 October 2026). The public KhanHomes UI contains illustrative metrics; its screenshot is not evidence of real live tenancy statistics. Amanah's payment flows remain frontend simulations.
+
+The listed `khaniversity-platform.vercel.app` URL returned HTTP 404 in the capture job. No screenshot or live-app claim is made for KHANIVERSITY. MySoft Office does not have a verified public capture in this release; its case study uses repository evidence, not a fabricated image.
+
+`/resume.html` is a responsive project-based résumé with an accessible Print / Save as PDF button and A4 print CSS. It contains **no invented job titles, employers, degrees, certifications or visitor/financial metrics**. It is designed to work without a backend.
+
+Production content is still a static portfolio: `assets/case-studies.css` and `assets/case-studies.js` serve the case studies and résumé, while `assets/atelier.css` is the source of the new homepage styles and `assets/portfolio.css` remains the deterministic single-file build. Tests cover case-study structure, screenshot provenance, real image loading, page overflow, keyboard interaction, and printing. Verify deployment by matching the live Vercel domain to the exact merged main commit.

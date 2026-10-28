@@ -105,7 +105,7 @@ test("vector icons are meaningful, self-hosted and referenced consistently",()=>
  assert.ok(symbols.length>=20,"Missing core SVG icons");
  const literal=[...html.matchAll(/\/assets\/icons\.svg#icon-([a-z0-9-]+)/g)].map(match=>match[1]);
  for(const id of literal)assert.ok(symbols.includes(id),"Unresolved SVG reference "+id);
- for(const id of ["code","cloud","shield","house","graduate","files","moon-star","heart","video","music","spark","network","search","github","linkedin","mail"]){
+ for(const id of ["code","cloud","shield","graduate","files","moon-star","heart","video","music","spark","network","search","github","linkedin","mail"]){
   assert.ok(literal.includes(id),"Missing visible icon for "+id);
  }
  assert.match(html,/class="expertise-symbol sym-code" aria-hidden="true"><svg/);
@@ -145,4 +145,43 @@ test("v2.4 accessible touch-target and container rules are retained",()=>{
  assert.match(atelierCss,/scroll-snap-type:x proximity/);
  assert.match(atelierCss,/prefers-reduced-motion:reduce/);
  assert.match(atelierCss,/max-width:360px/);
+});
+
+
+test("v2.5 stories use source-backed case studies, an authentic screenshot manifest and an honest résumé",()=>{
+ const pages=["khanhomes","khaniversity","mysoft-office","kudupray"];
+ for(const slug of pages){
+  const filename="../case-studies/"+slug+".html";
+  const detail=readFileSync(new URL(filename,import.meta.url),"utf8");
+  assert.ok(html.includes('href="/case-studies/'+slug+'.html"'),"Missing homepage case link for "+slug);
+  assert.match(detail,/class="case-story"/);
+  assert.match(detail,/id="challenge"/);
+  assert.match(detail,/id="approach"/);
+  assert.match(detail,/id="evidence"/);
+  assert.match(detail,/id="boundaries"/);
+  assert.match(detail,/id="next"/);
+  assert.ok(detail.includes("https://github.com/KuduKhan/"),"Source missing from "+slug);
+  assert.doesNotMatch(detail,/\b(?:10k users|million customers|99\.9% uptime)\b/i);
+ }
+ const manifest=JSON.parse(readFileSync(new URL("../assets/showcase/manifest.json",import.meta.url),"utf8"));
+ assert.equal(manifest.kind,"verified-website-captures");
+ assert.ok(manifest.screenshots.length>=6);
+ for(const image of manifest.screenshots){
+  assert.match(image.source,/^https:\/\/(?:khanhomes|kudupray|amanahgiving)\.vercel\.app\/$/);
+  assert.match(image.file,/^\/assets\/showcase\/[a-z-]+\.jpg$/);
+  assert.ok(existsSync(new URL(".."+image.file,import.meta.url)),"Missing actual screenshot "+image.file);
+  assert.ok(image.viewport.width>0);
+ }
+ const résumé=readFileSync(new URL("../resume.html",import.meta.url),"utf8");
+ assert.match(résumé,/id="print-resume"/);
+ assert.match(résumé,/independent project experience/i);
+ assert.doesNotMatch(résumé,/B\.Sc\.|Master of Science|worked at Google/i);
+ const capture=readFileSync(new URL("../assets/case-studies.css",import.meta.url),"utf8");
+ assert.match(capture,/@media print/);
+ assert.equal((capture.match(/\{/g)||[]).length,(capture.match(/\}/g)||[]).length);
+ const sites=readFileSync(new URL("../case-studies/index.html",import.meta.url),"utf8");
+ for(const slug of pages)assert.ok(sites.includes("/case-studies/"+slug+".html"));
+ assert.match(html,/id="screenshots"/);
+ assert.match(html,/id="resume"/);
+ assert.match(html,/src="\/assets\/showcase\/khanhomes-desktop\.jpg"/);
 });
