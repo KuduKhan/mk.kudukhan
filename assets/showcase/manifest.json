@@ -1,0 +1,73 @@
+{
+  "kind": "verified-website-captures",
+  "notice": "Actual unmodified public webpage captures; availability and UI change over time. No private or mock content.",
+  "capturedAt": "2026-10-28T05:08:22.094Z",
+  "screenshots": [
+    {
+      "project": "khanhomes",
+      "device": "desktop",
+      "file": "/assets/showcase/khanhomes-desktop.jpg",
+      "source": "https://khanhomes.vercel.app/",
+      "title": "KhanHomes — Property Management, Intelligently Connected",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "project": "khanhomes",
+      "device": "mobile",
+      "file": "/assets/showcase/khanhomes-mobile.jpg",
+      "source": "https://khanhomes.vercel.app/",
+      "title": "KhanHomes — Property Management, Intelligently Connected",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "project": "kudupray",
+      "device": "desktop",
+      "file": "/assets/showcase/kudupray-desktop.jpg",
+      "source": "https://kudupray.vercel.app/",
+      "title": "KuduPray | Prayer Times, Qibla, Qur’an & Daily Duas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "project": "kudupray",
+      "device": "mobile",
+      "file": "/assets/showcase/kudupray-mobile.jpg",
+      "source": "https://kudupray.vercel.app/",
+      "title": "KuduPray | Prayer Times, Qibla, Qur’an & Daily Duas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "project": "amanah",
+      "device": "desktop",
+      "file": "/assets/showcase/amanah-desktop.jpg",
+      "source": "https://amanahgiving.vercel.app/",
+      "title": "Amanah Giving | Verified Islamic Charity",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "project": "amanah",
+      "device": "mobile",
+      "file": "/assets/showcase/amanah-mobile.jpg",
+      "source": "https://amanahgiving.vercel.app/",
+      "title": "Amanah Giving | Verified Islamic Charity",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ]
+}
