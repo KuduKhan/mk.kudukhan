@@ -14,6 +14,18 @@ try {
     page.on("pageerror",e=>errors.push(e.message));
     await page.goto("http://127.0.0.1:4173/",{waitUntil:"domcontentloaded",timeout:30000});
     await page.waitForFunction(()=>document.querySelectorAll(".project-brief-trigger").length===8);
+    assert.equal(await page.locator(".case-detail-link").count(),4);
+    assert.equal(await page.locator("#resume").count(),1);
+    if([390,1440].includes(width)){
+      await page.locator("#screenshots").scrollIntoViewIfNeeded();
+      await page.locator(".evidence-desktop").first().waitFor({state:"visible"});
+      const images=await page.locator(".evidence-grid img").evaluateAll(async els=>{
+        await Promise.all(els.map(img=>img.decode().catch(()=>{})));
+        return els.map(img=>({src:img.getAttribute("src"),naturalWidth:img.naturalWidth}));
+      });
+      assert.equal(images.length,6,"Expected genuine screenshot pairs");
+      assert.ok(images.every(img=>img.naturalWidth>0),"Broken screenshot asset "+JSON.stringify(images));
+    }
     const cssLinks=await page.locator('link[rel="stylesheet"][href^="/assets/"]').count();
     assert.equal(cssLinks,1,width+"px expected one consolidated local stylesheet");
     assert.ok((await page.locator('.site-header').evaluate(el=>getComputedStyle(el).position))==="sticky");
@@ -97,6 +109,37 @@ try {
       assert.notEqual(colors.fg,colors.bg,width+"px invalid light theme contrast baseline");
     }
     console.log("PASS",width+"px — layout, filtering, dialogs, keyboard, navigation, theme");
+    if([390,1024,1440].includes(width)){
+      for(const item of [
+        {slug:"khanhomes",title:"KhanHomes"},
+        {slug:"khaniversity",title:"KHANIVERSITY"},
+        {slug:"mysoft-office",title:"MySoft Office"},
+        {slug:"kudupray",title:"KuduPray"}]){
+        await page.goto("http://127.0.0.1:4173/case-studies/"+item.slug+".html",{waitUntil:"domcontentloaded"});
+        assert.match(await page.locator("h1").first().textContent(),new RegExp(item.title,"i"));
+        assert.equal(await page.locator(".case-story section").count(),5);
+        const over=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+        assert.ok(over<=2,width+"px case study overflow "+item.slug+" "+over);
+        if(item.slug==="khanhomes"||item.slug==="kudupray"){
+          const shot=page.locator(".case-capture.desktop img");
+          await shot.scrollIntoViewIfNeeded();
+          await shot.evaluate(el=>el.decode());
+          assert.ok(await shot.evaluate(el=>el.naturalWidth>0),item.slug+" broken capture");
+        }
+      }
+      await page.goto("http://127.0.0.1:4173/resume.html",{waitUntil:"domcontentloaded"});
+      assert.equal(await page.locator(".resume-experience>div").count(),4);
+      assert.ok((await page.locator(".resume-sheet").isVisible()));
+      const over=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+      assert.ok(over<=2,width+"px résumé overflow "+over);
+      await page.evaluate(()=>window.print=()=>{window.__printCalled=true;});
+      await page.locator("#print-resume").click();
+      assert.equal(await page.evaluate(()=>window.__printCalled),true,"Résumé print action broken");
+      await page.emulateMedia({media:"print"});
+      assert.equal(await page.locator("#print-resume").isVisible(),false,"Screen-only print control should hide in print mode");
+      await page.emulateMedia({media:"screen"});
+      console.log("PASS",width+"px — case studies, screenshots, printable résumé");
+    }
     await context.close();
   }
   const motionContext=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:"no-preference",colorScheme:"dark"});
