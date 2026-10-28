@@ -119,3 +119,60 @@ button .ui-icon,a .ui-icon{transition:transform .26s var(--micro-ease)}
 
 /* Contain the decorative glow within the hero at all viewport sizes. */
 .hero-glow{right:0;width:min(740px,100%);max-width:100%}
+
+
+/* v2.4 — explicit component contracts and container-fit rules. */
+:root{--tap-target:44px}
+.site-header .header-inner{min-width:0}
+.site-header .header-actions,.site-header .brand{align-items:center;min-width:0}
+.header-actions>*{flex-shrink:0}
+.icon-button,.quick-nav-trigger,.menu-toggle{min-height:var(--tap-target)}
+.hero-copy,.hero-art,.section-top>*,.project-card,.project-content,.project-heading,.project-heading h3,.contact-main,.footer-main>*{min-width:0}
+.project-content,.compact{overflow-wrap:break-word}
+.projects-grid,.expertise-grid{min-width:0}
+.project-card .project-content{min-height:0}
+.project-foot{width:100%}
+.project-foot .tags{min-width:0;flex:1 1 auto}
+.project-foot .text-link{flex:0 0 auto;min-height:44px}
+.filter-bar{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+.filter-bar .filter{scroll-snap-align:start;flex:0 0 auto}
+.mobile-nav a,.filter-bar button,.project-brief-trigger{touch-action:manipulation}
+.contact-email{max-width:100%;min-width:0;overflow-wrap:anywhere}
+.contact-actions .button{min-width:0;max-width:100%}
+.footer-main{min-width:0}
+.footer-links a{min-width:0}
+:root[data-theme=light] .project-search:focus-within{box-shadow:0 0 0 3px rgba(69,106,40,.16)}
+:root[data-theme=light] .project-card::before{background:radial-gradient(370px circle at var(--spot-x) var(--spot-y),rgba(69,106,40,.065),transparent 72%)}
+@media(max-width:1250px) and (min-width:981px){
+  .brand-copy small{letter-spacing:.9px}
+  .header-inner{gap:12px}
+  .hero h1{font-size:clamp(44px,4.7vw,62px)}
+}
+@media(max-width:980px){
+  .site-header .header-cta{display:none}
+  .mobile-nav{max-width:100vw}
+  .hero{gap:clamp(38px,6vw,65px)}
+}
+@media(max-width:720px){
+  .project-heading{gap:12px}
+  .project-heading h3{min-width:0}
+  .project-card .project-foot{flex-wrap:wrap;gap:8px 16px}
+  .footer-main{align-items:start}
+}
+@media(max-width:480px){
+  .hero-buttons .button{min-width:0}
+  .hero-art{max-width:100%}
+  .project-card.featured .project-content{align-items:stretch}
+  .project-foot .text-link{display:inline-flex;align-items:center}
+  .footer-links{gap:8px 14px}
+  .footer-bottom{gap:8px 14px}
+}
+@media(max-width:360px){
+  .site-header .brand-copy small{font-size:6px;letter-spacing:.6px}
+  .project-toolbar{min-width:0}
+  .project-search{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .filter-bar{scroll-snap-type:none}
+  .project-card,.button,.icon-button,.site-footer .ui-icon{transition:none!important}
+}

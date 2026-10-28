@@ -10,6 +10,7 @@ const premiumCss = readFileSync(new URL("../assets/premium.css", import.meta.url
 const atelierCss = readFileSync(new URL("../assets/atelier.css", import.meta.url), "utf8");
 const atelierJs = readFileSync(new URL("../assets/atelier.js", import.meta.url), "utf8");
 const icons = readFileSync(new URL("../assets/icons.svg", import.meta.url), "utf8");
+const consolidatedCss = readFileSync(new URL("../assets/portfolio.css", import.meta.url), "utf8");
 const files = new URL("../", import.meta.url);
 
 test("metadata, language, landmark and identity are present", () => {
@@ -122,4 +123,26 @@ test("decorative motion remains optional and browser scripts parse",()=>{
  assert.match(experience,/svgIcon\("arrow-up-right"\)/);
  assert.doesNotThrow(()=>new Function(atelierJs));
  assert.equal((atelierCss.match(/\{/g)||[]).length,(atelierCss.match(/\}/g)||[]).length);
+});
+
+test("v2.4 serves a single deterministic CSS bundle with unmodified cascade order",()=>{
+ const files=["styles.css","premium.css","atelier.css"];
+ const expected=files.map(name=>{
+   const source=readFileSync(new URL("../assets/"+name,import.meta.url),"utf8").trimEnd();
+   return "/* SOURCE: assets/"+name+" — generated; edit original source */\n"+source+"\n";
+ }).join("\n");
+ assert.equal(consolidatedCss,expected,"Stale built CSS; run node scripts/build-css.mjs");
+ assert.equal((html.match(/<link rel="stylesheet" href="\/assets\/[^"]+"[^>]*>/g)||[]).length,1);
+ assert.match(html,/href="\/assets\/portfolio\.css"/);
+ assert.doesNotMatch(html,/href="\/assets\/(?:styles|premium|atelier)\.css"/);
+ for(const selector of [".site-header .header-cta",".hero-glow",".mobile-nav",".project-card",".contact-email",".footer-main"]){
+   assert.ok(consolidatedCss.includes(selector),"Missing selector "+selector);
+ }
+});
+test("v2.4 accessible touch-target and container rules are retained",()=>{
+ assert.match(atelierCss,/--tap-target:44px/);
+ assert.match(atelierCss,/\.project-card \.project-foot\{flex-wrap:wrap/);
+ assert.match(atelierCss,/scroll-snap-type:x proximity/);
+ assert.match(atelierCss,/prefers-reduced-motion:reduce/);
+ assert.match(atelierCss,/max-width:360px/);
 });
