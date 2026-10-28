@@ -127,6 +127,14 @@ try {
           assert.ok(await shot.evaluate(el=>el.naturalWidth>0),item.slug+" broken capture");
         }
       }
+      if(width===390){
+        await page.goto("http://127.0.0.1:4173/case-studies/khanhomes.html",{waitUntil:"domcontentloaded"});
+        const phone=page.locator(".case-capture.mobile img");
+        await phone.scrollIntoViewIfNeeded();
+        assert.ok(await phone.isVisible(),"Mobile source capture should be visible on phone-sized screens");
+        await phone.evaluate(el=>el.decode());
+        assert.ok(await phone.evaluate(el=>el.naturalWidth>0),"Mobile screenshot failed to decode");
+      }
       await page.goto("http://127.0.0.1:4173/resume.html",{waitUntil:"domcontentloaded"});
       assert.equal(await page.locator(".resume-experience>div").count(),4);
       assert.ok((await page.locator(".resume-sheet").isVisible()));
@@ -142,6 +150,13 @@ try {
     }
     await context.close();
   }
+  const editorialContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:"reduce"});
+  const editorialPage=await editorialContext.newPage();
+  await editorialPage.goto("http://127.0.0.1:4173/case-studies/",{waitUntil:"domcontentloaded"});
+  assert.equal(await editorialPage.locator(".case-index-glyph").count(),4);
+  assert.equal(await editorialPage.locator(".case-index-arrow").count(),4);
+  assert.equal(await editorialPage.evaluate(()=>document.documentElement.scrollWidth-innerWidth),0,"Case index overflow");
+  await editorialContext.close();
   const motionContext=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:"no-preference",colorScheme:"dark"});
   const motionPage=await motionContext.newPage();
   await motionPage.goto("http://127.0.0.1:4173/",{waitUntil:"domcontentloaded"});

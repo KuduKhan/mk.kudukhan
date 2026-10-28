@@ -185,3 +185,28 @@ test("v2.5 stories use source-backed case studies, an authentic screenshot manif
  assert.match(html,/id="resume"/);
  assert.match(html,/src="\/assets\/showcase\/khanhomes-desktop\.jpg"/);
 });
+
+
+test("polish release keeps SVG icon families and editorial motion accessible",()=>{
+ const symbols=readFileSync(new URL("../assets/icons.svg",import.meta.url),"utf8");
+ for(const name of ["sun","moon-star","house","book-open","layers","file-text","monitor","smartphone","scan"]){
+  assert.ok(symbols.includes('id="icon-'+name+'"'),"Missing "+name+" icon");
+ }
+ assert.match(html,/class="theme-sun ui-icon"[^>]*><use href="\/assets\/icons\.svg#icon-sun"/);
+ assert.match(html,/class="theme-moon ui-icon"[^>]*><use href="\/assets\/icons\.svg#icon-moon-star"/);
+ const directory=readFileSync(new URL("../case-studies/index.html",import.meta.url),"utf8");
+ assert.equal((directory.match(/class="case-index-glyph ui-icon"/g)||[]).length,4);
+ assert.equal((directory.match(/class="case-index-arrow ui-icon"/g)||[]).length,4);
+ assert.match(directory,/src="\/assets\/case-studies\.js" defer/);
+ const script=readFileSync(new URL("../assets/case-studies.js",import.meta.url),"utf8");
+ assert.doesNotThrow(()=>new Function(script));
+ assert.match(script,/prefers-reduced-motion: reduce/);
+ assert.match(script,/aria-current/);
+ assert.match(script,/Element\.prototype\.animate/);
+ const styles=readFileSync(new URL("../assets/case-studies.css",import.meta.url),"utf8");
+ assert.match(styles,/\.case-capture\.mobile\{display:flex/);
+ assert.match(styles,/\.case-index-glyph/);
+ assert.match(styles,/@media print/);
+ assert.equal((styles.match(/\{/g)||[]).length,(styles.match(/\}/g)||[]).length);
+ assert.match(atelierCss,/:root\.motion-paused \.project-card/);
+});
